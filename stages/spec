@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+out = [':build', ':capi', 'ci', 'command_line', ':compiler', ':core', 'language', 'library', ':ruby'].map do |set|
+  ["spec-#{set.gsub(':', '')}", {'results' => [], 'needs' => [], 'run' => "./env \"./configure && rake build && bin/mspec #{set}\""}]
+end
+
+y Hash[out]
